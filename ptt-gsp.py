@@ -5,7 +5,7 @@ import urllib.parse as up
 
 def GSP(word, page):
     word = up.quote(word)
-    url = f'https://www.ptt.cc/bbs/Gossiping/search?page={page}&q={word}'
+    url = f'https://www.ptt.cc/bbs/Gossiping/search?q={word}&page={page}'
 
     request = ur.Request(url, headers={
         'Cookie': 'over18=1',
@@ -32,9 +32,8 @@ def GSP(word, page):
     index = 0
     for title in titles:
         index += 1
-        if title.a != None:
-            if index in num:
-                list.append(title.a.string)
+        if title.a != None and index in num:
+            list.append(title.a.string)
 
     for l in list:
         print(l)
@@ -42,6 +41,8 @@ def GSP(word, page):
 
 if __name__ == '__main__':
     page = 1
-    while page <= 20:
-        GSP('爆卦', page)
+    word = input("請輸入要搜尋的關鍵字： ")
+    end = int(input("請問要抓取幾頁： "))
+    while page <= end:
+        GSP(word, page)
         page += 1
